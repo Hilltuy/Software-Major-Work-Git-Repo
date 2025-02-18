@@ -6,7 +6,7 @@ pygame.init()
 midi.init()
 mixer.init()
 mainClock = pygame.time.Clock()
-#midi_in = midi.Input(1)
+midi_in = midi.Input(1)
 
 SCREEN_WIDTH = 1200
 SCREEN_HEIGHT = 960
@@ -15,7 +15,7 @@ pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
 
 running = True
 while running:
-    midi.Output.write_short(0x90, 65, 100)
+    midi.Output.write(midi.Input.read(midi_in,1))
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()

@@ -15,7 +15,7 @@ midi_in = midi.Input(1) #can change the number to the computer keyboard for work
 def rightHandImprov():
     print(midi.get_device_info(1)) #midi ID 1 is my midi controller keyboard
     midiDataList.append(midi.Input.read(midi_in,1)) #reads in the midi input data
-    print(midiDataList) #displays the midiDataList table to prove that information is coming in
+    print(midiDataList[0]) #displays the midiDataList table to prove that information is coming in
 
 running = True
 while running:
