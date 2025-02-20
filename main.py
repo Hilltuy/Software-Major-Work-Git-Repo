@@ -14,8 +14,8 @@ pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
 
 midiDataList = []
 midi_in = midi.Input(midi.get_default_input_id()) #can change the number to the computer keyboard for working at school
-#midi_out = midi.Output(midi.get_default_output_id(),0)
-midi_out = midi.Output(5,0)
+midi_out = midi.Output(midi.get_default_output_id(),0)
+#midi_out = midi.Output(5,0)
 midi_out.set_instrument(0)
 
 def rightHandImprov():
@@ -23,12 +23,18 @@ def rightHandImprov():
     #print(midi_in.read(1)[0])
     midi_out.write(midi_in.read(1))
     pass
-for i in range(-2, 8):
-    print(str(midi.get_device_info(i))+": "+str(i))
-running = True
 
+def get_devices():
+    for i in range(-2, 8):
+        print(str(midi.get_device_info(i))+": "+str(i))
+
+running = True
+get_devices()
 while running:
     rightHandImprov()
+    
+    
+    
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
