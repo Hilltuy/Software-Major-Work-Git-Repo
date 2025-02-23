@@ -20,7 +20,7 @@ midi_out.set_instrument(0)
 
 def rightHandImprov():
     #print(midi.get_device_info(1)) #midi ID 1 is my midi controller keyboard
-    #print(midi_in.read(1)[0])
+    #print(midi_in.read(1))
     midi_out.write(midi_in.read(1))
     pass
 
