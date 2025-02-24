@@ -31,16 +31,11 @@ def get_devices():
 running = True
 get_devices()
 while running:
-    rightHandImprov()
-    
-    
-    
+    rightHandImprov() 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
 
-    pygame.display.update()
-    #mainClock.tick(360)
 
 running = False
 
