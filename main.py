@@ -1,6 +1,6 @@
 import pygame
 import pygame.midi as midi
-
+import rightHandImprovApp 
 pygame.init()
 midi.init()
 mainClock = pygame.time.Clock()
@@ -12,17 +12,8 @@ pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
 
 
 
-midiDataList = []
-midi_in = midi.Input(midi.get_default_input_id()) #can change the number to the computer keyboard for working at school
-midi_out = midi.Output(midi.get_default_output_id(),0)
-#midi_out = midi.Output(5,0)
-midi_out.set_instrument(0)
 
-def rightHandImprov():
-    #print(midi.get_device_info(1)) #midi ID 1 is my midi controller keyboard
-    #print(midi_in.read(1))
-    midi_out.write(midi_in.read(1))
-    pass
+
 
 def get_devices():
     for i in range(-2, 8):
@@ -31,7 +22,7 @@ def get_devices():
 running = True
 get_devices()
 while running:
-    rightHandImprov()
+    rightHandImprovApp.rightHandImprov()
     
     
     
