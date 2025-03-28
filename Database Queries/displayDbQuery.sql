@@ -1,2 +1,2 @@
 select *
-from 
+from modes

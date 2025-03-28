@@ -13,7 +13,7 @@ midi_out.set_instrument(0)
 def generateChords(key, tonality):
     if key == 0:
         #choose random notes
-    
+        pass
 
 
 
