@@ -1,0 +1,4 @@
+CREATE TABLE modes(
+  root_key TEXT PRIMARY KEY NOT NULL,
+  tonality REAL NOT NULL,
+  scale REAL NOT NULL);
