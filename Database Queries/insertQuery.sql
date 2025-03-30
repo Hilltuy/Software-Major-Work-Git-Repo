@@ -1,2 +1,2 @@
-INSERT INTO modes(root_key,tonality,scale)
-VALUES ('C','Major','1,3,5,6,8,10,11,12');
+INSERT INTO modeTable(mode,scale)
+VALUES ('Major','0,2,4,5,7,9,10,11');

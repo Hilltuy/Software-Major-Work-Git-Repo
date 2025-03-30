@@ -8,17 +8,25 @@ mixer.init()
 
 conn = sqlite3.connect('modeDatabase.db')
 
-cursor = conn.execute("SELECT scale FROM movies")
+cursor = conn.execute("SELECT scale FROM modeTable WHERE mode == 'Major';")
 for row in cursor:
-    stringMode = row[2]
+    stringMode = row[0]
 
 scaleValues = []
+counter = -1
 for char in stringMode:
+    counter += 1
     if char.isdigit():
-        scaleValues.append(char)
+        print("character "+str(counter)+": "+str(stringMode[counter]))
+        if stringMode[counter+1].isdigit():
+            scaleValues.append(char+stringMode[counter+1])
+        else:
+            scaleValues.append(char)
 
-for value in scaleValues:
-    print(midi.midi_to_ansi_note(value))
+print(scaleValues)
+
+# for value in scaleValues:
+#     print(midi.midi_to_ansi_note(value))
 
 
 

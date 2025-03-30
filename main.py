@@ -14,7 +14,6 @@ pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
 
 
 
-
 def get_devices():
     for i in range(-2, 8):
         print(str(midi.get_device_info(i))+": "+str(i))
