@@ -13,20 +13,50 @@ for row in cursor:
     stringMode = row[0]
 
 scaleValues = []
-counter = -1
+doubleDigitLeftoverIndexes = []
+
+counter = -1 #counter used for indexing
 for char in stringMode:
     counter += 1
-    if char.isdigit():
-        print("character "+str(counter)+": "+str(stringMode[counter]))
-        if stringMode[counter+1].isdigit():
-            scaleValues.append(char+stringMode[counter+1])
-        else:
-            scaleValues.append(char)
 
-print(scaleValues)
+    if char.isdigit() and counter != (len(stringMode)-1): #ensures that character is not a comma and isnt at the end of the array
+        print("character "+str(counter)+": "+str(stringMode[counter])) #for console debugging
 
-# for value in scaleValues:
-#     print(midi.midi_to_ansi_note(value))
+        if stringMode[counter+1].isdigit(): #if it's a 2 digit number
+            scaleValues.append(int(char+stringMode[counter+1])) #combine both digits into one integer and append to scaleValues
+            doubleDigitLeftoverIndexes.append(len(scaleValues)) #notes the index in which there will be a double digit 'leftover'; where the algorithm iterates through the second digit of a 2 digit number
+            #doubleDigitLeftoverIndexes is used by the next for loop to delete the lone one digit numbers that come from the 2 digit numbers already iterated over
+    
+        else: #if the character is a one digit number
+            scaleValues.append(int(char)) #add normally
+
+scaleBefore = scaleValues.copy() #Stores the uncleaned version of the scaleValues array for comparing in the cleaning algorithm
+print("scale before: "+str(scaleBefore)) #for console debugging
+
+counter = -1 #counter reused for indexing
+if len(doubleDigitLeftoverIndexes) > 1: #cleaning is only necessary if there is more than one 2 digit number
+    for i in doubleDigitLeftoverIndexes:
+        counter += 1
+        print("ddi: "+str(i)) #ddi = the index of a double digit leftover
+
+        if i != len(scaleBefore) - 1: #if the index isnt at the end of the array, as there will not be leftovers at the end of the array
+            print("does "+str(i)+" = "+str(len(scaleBefore) - 1),"scaleBefore = "+str(scaleBefore)) #for console debugging
+
+            scaleValues.pop(i) #deletes leftover at index 'i'
+
+            doubleDigitLeftoverIndexes[counter + 1] -= (counter + 1) #reduces index value by 1 because the length of the array has been lowered
+            print("new DDIs: "+str(doubleDigitLeftoverIndexes)) #for console debugging
+        
+        print("new scale: "+str(scaleValues)) #console debugging
+
+    print("scale after: "+str(scaleValues)) #for comparing the new cleaned array to the uncleaned array
+
+
+
+
+
+for value in scaleValues:
+    print(midi.midi_to_ansi_note(value))
 
 
 
