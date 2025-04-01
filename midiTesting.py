@@ -79,26 +79,34 @@ def getScale(key,mode):
 getScale('C','Natural Minor')
 
 
-# mainClock = pygame.time.Clock()
-# midi_in = midi.Input(1)
 
-# SCREEN_WIDTH = 1200
-# SCREEN_HEIGHT = 960
+mainClock = pygame.time.Clock()
+midi_in = midi.Input(1)
 
-# pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
+SCREEN_WIDTH = 1200
+SCREEN_HEIGHT = 960
 
-# running = True
-# while running:
-#     midi.Output.write([[[144, 59, 66, 0], 1000]])
-#     for event in pygame.event.get():
-#         if event.type == pygame.QUIT:
-#             pygame.quit()
+SCREEN = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT),pygame.RESIZABLE)
+my_font = pygame.font.SysFont('Helvetica', 30)
 
-#     pygame.display.update()
-#     mainClock.tick(60)
-
-# running = False
+running = True
+while running:
+    #midi.Output.write([[[144, 59, 66, 0], 1000]])
+    text_surface = my_font.render('B Minor', (255, 0, 0), (0, 0, 0))
+    SCREEN.blit(text_surface, (0,0))
 
 
-#print(midi.midi_to_ansi_note(0))
+
+
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+
+    pygame.display.update()
+    mainClock.tick(60)
+
+running = False
+
+
+print(midi.midi_to_ansi_note(0))
 

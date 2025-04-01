@@ -5,10 +5,10 @@ pygame.init()
 midi.init()
 mainClock = pygame.time.Clock()
 
-SCREEN_WIDTH = 1200
+SCREEN_WIDTH = 1200 
 SCREEN_HEIGHT = 960
 
-pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
+SCREEN = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT),pygame.RESIZABLE)
 
 
 
@@ -21,14 +21,15 @@ def get_devices():
 running = True
 get_devices()
 while running:
-    rightHandImprovApp.rightHandImprov()
+    #rightHandImprovApp.rightHandImprov()
     
     
+
     
+    pygame.display.update() 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
-
 
 running = False
 
