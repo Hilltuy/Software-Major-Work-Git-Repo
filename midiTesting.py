@@ -22,7 +22,7 @@ keyDistancesFromC = {
 }
 
 conn = sqlite3.connect('modeDatabase.db')
-def getScale(key,mode):
+def getScale(key,mode, octave):
     cursor = conn.execute("SELECT scale FROM modeTable WHERE mode == '{}';".format(mode))
     for row in cursor:
         stringMode = row[0]
@@ -71,12 +71,14 @@ def getScale(key,mode):
         for i in range(len(scaleInKey)):
             scaleInKey[i] = int(scaleInKey[i] + keyDistancesFromC[key]) 
     
+    for note in scaleInKey:
+        note += 12 * octave
 
     print("Scale: {} {}".format(key,mode))
     for value in scaleInKey:
         print(midi.midi_to_ansi_note(value))
 
-getScale('C','Natural Minor')
+getScale('C','Natural Minor',3)
 
 
 
