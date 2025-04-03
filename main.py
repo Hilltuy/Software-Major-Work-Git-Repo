@@ -21,7 +21,7 @@ def get_devices():
 running = True
 get_devices()
 while running:
-    #rightHandImprovApp.rightHandImprov()
+    rightHandImprovApp.rightHandImprov()
     
     
 

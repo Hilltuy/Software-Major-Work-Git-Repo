@@ -71,14 +71,21 @@ def getScale(key,mode, octave):
         for i in range(len(scaleInKey)):
             scaleInKey[i] = int(scaleInKey[i] + keyDistancesFromC[key]) 
     
-    for note in scaleInKey:
-        note += 12 * octave
+    # for note in scaleInKey:
+    #     print("note before: "+str(note))
+    #     note = note + (12 * octave)
+    #     print("note after: "+str(note))
 
-    print("Scale: {} {}".format(key,mode))
+    for index in range(len(scaleInKey)):
+        scaleInKey[index] = scaleInKey[index] + (12 * (octave + 1))
+
+    #print(scaleInKey)
+
+    print("Scale: {} {}, Octave {}".format(key,mode,octave))
     for value in scaleInKey:
         print(midi.midi_to_ansi_note(value))
 
-getScale('C','Natural Minor',3)
+getScale('F#','Diminished',2)
 
 
 
@@ -89,7 +96,7 @@ SCREEN_WIDTH = 1200
 SCREEN_HEIGHT = 960
 
 SCREEN = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT),pygame.RESIZABLE)
-my_font = pygame.font.SysFont('Helvetica', 30)
+my_font = pygame.font.SysFont('Comic Sans MS', 30)
 
 running = True
 while running:
@@ -98,7 +105,7 @@ while running:
     SCREEN.blit(text_surface, (0,0))
 
 
-
+    midi.Output.write([[[0xc0, 0, 0], 20000], [[0x90, 60, 100], 20500]])
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
