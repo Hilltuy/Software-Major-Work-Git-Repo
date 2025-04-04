@@ -90,7 +90,7 @@ getScale('F#','Diminished',2)
 
 
 mainClock = pygame.time.Clock()
-midi_in = midi.Input(1)
+#midi_in = midi.Input(1)
 
 SCREEN_WIDTH = 1200
 SCREEN_HEIGHT = 960
@@ -99,13 +99,14 @@ SCREEN = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT),pygame.RESIZABLE)
 my_font = pygame.font.SysFont('Comic Sans MS', 30)
 
 running = True
+print(midi.Output.write([[[0x90,65,100,0],1000],[[0x90,75,100,0],2000]]))
 while running:
-    #midi.Output.write([[[144, 59, 66, 0], 1000]])
+    #print(midi.Output.write([[[144, 59, 66, 0], 1000]]))
     text_surface = my_font.render('B Minor', (255, 0, 0), (0, 0, 0))
     SCREEN.blit(text_surface, (0,0))
 
 
-    midi.Output.write([[[0xc0, 0, 0], 20000], [[0x90, 60, 100], 20500]])
+   
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
