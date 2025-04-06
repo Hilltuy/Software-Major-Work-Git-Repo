@@ -2,9 +2,14 @@ import pygame
 import pygame.midi as midi
 import pygame.mixer as mixer
 import sqlite3
+import pygame.time as time
 pygame.init()
 midi.init()
 mixer.init()
+midi_in = midi.Input(midi.get_default_input_id()) #can change the number to the computer keyboard for working at school
+midi_out = midi.Output(midi.get_default_output_id(),0)
+#midi_out = midi.Output(5,0)
+midi_out.set_instrument(0)
 
 keyDistancesFromC = {
     'C':0,
@@ -85,7 +90,11 @@ def getScale(key,mode, octave):
     for value in scaleInKey:
         print(midi.midi_to_ansi_note(value))
 
-getScale('F#','Diminished',2)
+    for note in scaleInKey:
+
+        midi_out.note_on(note,100,0) #plays all notes of the scale
+
+getScale('A#','Major',4)
 
 
 
@@ -99,7 +108,8 @@ SCREEN = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT),pygame.RESIZABLE)
 my_font = pygame.font.SysFont('Comic Sans MS', 30)
 
 running = True
-print(midi.Output.write([[[0x90,65,100,0],1000],[[0x90,75,100,0],2000]]))
+
+#midi.Output.note_on()
 while running:
     #print(midi.Output.write([[[144, 59, 66, 0], 1000]]))
     text_surface = my_font.render('B Minor', (255, 0, 0), (0, 0, 0))
