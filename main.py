@@ -18,20 +18,25 @@ def get_devices():
     for i in range(-2, 8):
         print(str(midi.get_device_info(i))+": "+str(i))
 
-running = True
+
 get_devices()
-while running:
-    rightHandImprovApp.rightHandImprov()
+CMajorScale = rightHandImprovApp.getScale('C','Major',4)
+#CMajorScale.playDegree(2,natural,minor)
+
+
+# running = True
+# while running:
+#     rightHandImprovApp.rightHandImprov()
     
     
 
     
-    pygame.display.update() 
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
+#     pygame.display.update() 
+#     for event in pygame.event.get():
+#         if event.type == pygame.QUIT:
+#             pygame.quit()
 
-running = False
+# running = False
 
 
 
