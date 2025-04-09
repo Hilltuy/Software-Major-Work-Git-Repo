@@ -12,3 +12,9 @@ keyDistancesFromC = {
     'A#':10,
     'B':11,
 }
+
+AccidentalsIntegerNotation = {
+    'Sharp':1,
+    'Natural':0,
+    'Flat':-1
+}

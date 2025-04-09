@@ -1,2 +1,4 @@
-#Stores the uncleaned version of the scaleValues array for comparing in the cleaning algorithm
+from classes import Scale
 
+myScale = Scale("A","Natural Minor",3)
+print(myScale)

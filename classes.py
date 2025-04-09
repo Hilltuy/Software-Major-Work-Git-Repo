@@ -1,11 +1,15 @@
 from constantArraysAndDicts import keyDistancesFromC
+from constantArraysAndDicts import degreeTonalityForModes
+from constantArraysAndDicts import AccidentalsIntegerNotation
 import sqlite3
-
+import pygame.midi as midi
 
 class Scale():
-    def __init__(self, key, mode, octave):
+    def __init__(self, key = str, mode = str, octave = int):
         self.notes = self.setScale(key,mode,octave)
-    
+        self.key = key
+        self.mode = mode
+        self.octave = octave
     
     def setScale(key,mode, octave):
         conn = sqlite3.connect('modeDatabase.db')
@@ -69,7 +73,16 @@ class Scale():
 
         return scaleInKey
 
-    def playDegree(self,degree,accidental,tonality):
-        if type(tonality) == str:
-            pass
+    def playDegree(self,degree=int,accidental=str,tonality=str):
+        #if type(tonality) == str:
+        #    pass
+        chord = []
+        rootNote = self.notes[(degree-1)+ AccidentalsIntegerNotation[accidental]] #sets root note of degree
+        rootNoteScale = self.setScale(midi.midi_to_ansi_note(rootNote),degreeTonalityForModes[self.mode][degree - 1],self.octave)
+        diadNote = rootNoteScale[2]
+        triadNote = rootNoteScale[4]
+        chord.extend([rootNote,diadNote,triadNote])
+        print(chord)
+
+
 

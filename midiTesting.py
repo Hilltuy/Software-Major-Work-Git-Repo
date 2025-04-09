@@ -6,10 +6,10 @@ import pygame.time as time
 pygame.init()
 midi.init()
 mixer.init()
-midi_in = midi.Input(midi.get_default_input_id()) #can change the number to the computer keyboard for working at school
+#midi_in = midi.Input(midi.get_default_input_id()) #can change the number to the computer keyboard for working at school
 midi_out = midi.Output(midi.get_default_output_id(),0)
 #midi_out = midi.Output(5,0)
-midi_out.set_instrument(0)
+#midi_out.set_instrument(0)
 
 keyDistancesFromC = {
     'C':0,
@@ -93,9 +93,11 @@ def getScale(key,mode, octave):
     for note in scaleInKey:
 
         midi_out.note_on(note,100,0) #plays all notes of the scale
+        #time.delay(200)
+        #midi_out.note_off(note,0,0)
 
-getScale('A#','Major',4)
-
+getScale('C#','Diminished',4)
+    
 
 
 mainClock = pygame.time.Clock()
