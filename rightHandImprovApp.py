@@ -108,7 +108,7 @@ def getScale(key,mode, octave):
         midi_out.note_on(note,100,0) #plays all notes of the scale
 
 def playDegree(degree,accidental,tonality):
-    
+    pass
 
 
 def rightHandImprov():

@@ -3,6 +3,9 @@ from constantArraysAndDicts import degreeTonalityForModes
 from constantArraysAndDicts import AccidentalsIntegerNotation
 import sqlite3
 import pygame.midi as midi
+midi.init()
+midi_out = midi.Output(midi.get_default_output_id(),0)
+
 
 class Scale():
     def __init__(self, key = str, mode = str, octave = int):
@@ -11,7 +14,7 @@ class Scale():
         self.mode = mode
         self.octave = octave
     
-    def setScale(key,mode, octave):
+    def setScale(self,key,mode, octave):
         conn = sqlite3.connect('modeDatabase.db')
         cursor = conn.execute("SELECT scale FROM modeTable WHERE mode == '{}';".format(mode))
         for row in cursor:
@@ -25,7 +28,7 @@ class Scale():
             counter += 1
 
             if char.isdigit() and counter != (len(stringMode)-1): #ensures that character is not a comma and isnt at the end of the array
-                print("character "+str(counter)+": "+str(stringMode[counter])) #for console debugging
+                #print("character "+str(counter)+": "+str(stringMode[counter])) #for console debugging
 
                 if stringMode[counter+1].isdigit(): #if it's a 2 digit number
                     scaleValues.append(int(char+stringMode[counter+1])) #combine both digits into one integer and append to scaleValues
@@ -36,25 +39,25 @@ class Scale():
                     scaleValues.append(int(char)) #add normally
 
         scaleBefore = scaleValues.copy() #Stores the uncleaned version of the scaleValues array for comparing in the cleaning algorithm
-        print("scale before: "+str(scaleBefore)) #for console debugging
+        #print("scale before: "+str(scaleBefore)) #for console debugging
 
         counter = -1 #counter reused for indexing
         if len(doubleDigitLeftoverIndexes) > 1: #cleaning is only necessary if there is more than one 2 digit number
             for i in doubleDigitLeftoverIndexes:
                 counter += 1
-                print("ddi: "+str(i)) #ddi = the index of a double digit leftover
+                #print("ddi: "+str(i)) #ddi = the index of a double digit leftover
 
                 if i != len(scaleBefore) - 1: #if the index isnt at the end of the array, as there will not be leftovers at the end of the array
-                    print("does "+str(i)+" = "+str(len(scaleBefore) - 1),"scaleBefore = "+str(scaleBefore)) #for console debugging
+                    #print("does "+str(i)+" = "+str(len(scaleBefore) - 1),"scaleBefore = "+str(scaleBefore)) #for console debugging
 
                     scaleValues.pop(i) #deletes leftover at index 'i'
 
                     doubleDigitLeftoverIndexes[counter + 1] -= (counter + 1) #reduces index value by 1 because the length of the array has been lowered
-                    print("new DDIs: "+str(doubleDigitLeftoverIndexes)) #for console debugging
+                    #print("new DDIs: "+str(doubleDigitLeftoverIndexes)) #for console debugging
                 
-                print("new scale: "+str(scaleValues)) #console debugging
+                #print("new scale: "+str(scaleValues)) #console debugging
 
-            print("scale after: "+str(scaleValues)) #for comparing the new cleaned array to the uncleaned array
+           # print("scale after: "+str(scaleValues)) #for comparing the new cleaned array to the uncleaned array
 
         scaleInKey = scaleValues.copy()
         if key in keyDistancesFromC.keys():
@@ -77,12 +80,20 @@ class Scale():
         #if type(tonality) == str:
         #    pass
         chord = []
-        rootNote = self.notes[(degree-1)+ AccidentalsIntegerNotation[accidental]] #sets root note of degree
-        rootNoteScale = self.setScale(midi.midi_to_ansi_note(rootNote),degreeTonalityForModes[self.mode][degree - 1],self.octave)
+        rootNote = self.notes[(degree-1)+AccidentalsIntegerNotation[accidental]] #sets root note of degree
+        rootNoteScale = self.setScale(midi.midi_to_ansi_note(rootNote)[0],degreeTonalityForModes[self.mode][degree - 1],self.octave + 1)
+        print(midi.midi_to_ansi_note(rootNote) +degreeTonalityForModes[self.mode][degree - 1] + str((self.octave + 1)))
+        print(rootNoteScale)
+        
         diadNote = rootNoteScale[2]
         triadNote = rootNoteScale[4]
+        print('\n'+midi.midi_to_ansi_note(diadNote)+midi.midi_to_ansi_note(triadNote))
         chord.extend([rootNote,diadNote,triadNote])
         print(chord)
+        for note in chord:
+            print(midi.midi_to_ansi_note(note))
 
+    def get_notes(self):
+        return self.notes
 
 
