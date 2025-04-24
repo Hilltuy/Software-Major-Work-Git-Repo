@@ -1,6 +1,9 @@
 import pygame
 import pygame.midi as midi
-import rightHandImprovApp 
+import classes
+from classes import Scale
+
+
 pygame.init()
 midi.init()
 mainClock = pygame.time.Clock()
@@ -20,21 +23,26 @@ def get_devices():
 
 
 get_devices()
-CMajorScale = rightHandImprovApp.getScale('C','Major',4)
+myScale = Scale('F#','Major',3)
+
+for i in range(8):
+    myScale.playDegree(i + 1,'Natural')
+
+
 #CMajorScale.playDegree(2,natural,minor)
 
 
-# running = True
-# while running:
+running = True
+while running:
 #     rightHandImprovApp.rightHandImprov()
     
     
 
     
-#     pygame.display.update() 
-#     for event in pygame.event.get():
-#         if event.type == pygame.QUIT:
-#             pygame.quit()
+    pygame.display.update() 
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
 
 # running = False
 
