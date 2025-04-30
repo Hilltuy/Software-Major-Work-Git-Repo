@@ -1,12 +1,16 @@
-import classes
 from classes import Scale
 import random 
 from pygame import time
 
-myScale = Scale('A#','Major',3)
-
 #myScale.playDegree(2,'Natural')
 
-for i in range(4):
-    degree = random.randint(1,7)
-    myScale.playDegree(degree,'Natural')
+key = input("What key would you like to play in?")
+tonality = input("In which tonality?")
+octave = ''
+while octave.isdigit() == False:
+    octave = input("In which octave?")
+octave = int(octave)
+
+myScale = Scale(key,tonality,octave)
+for i in range(20):
+    myScale.playDegree(random.randint(1,7),'Natural')

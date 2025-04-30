@@ -1,6 +1,8 @@
 import pygame
 import pygame.midi as midi
 from classes import Scale
+from ui import Text
+from ui import TextButton
 pygame.init()
 midi.init()
 mainClock = pygame.time.Clock()
@@ -20,7 +22,7 @@ color_light = (170,170,170)
 color_dark = (100,100,100)      
 
 # defining a font  
-smallfont = pygame.font.SysFont('Helvetica',35)  
+smallfont = pygame.font.SysFont('Helvetica',30)  
   
 # rendering a text written in  
 # this font  
@@ -37,8 +39,10 @@ CMajorScale = Scale('C','Major',4)
 #CMajorScale.playDegree(2,natural,minor)
 
 canClickRHI = False
-running = True
-while running:
+runningMainMenu = True
+runningRHI = False
+
+while runningMainMenu == True:
      
     # fills the SCREEN with a color  
     SCREEN.fill((60,25,60))
@@ -47,28 +51,38 @@ while running:
       
     # if mouse is hovered on a button it  
     # changes to lighter shade  
-    if SCREEN_WIDTH/2 <= mouse[0] <= SCREEN_WIDTH/2+140 and SCREEN_HEIGHT/2 <= mouse[1] <= SCREEN_HEIGHT/2+40:  
-        pygame.draw.rect(SCREEN,color_light,[SCREEN_WIDTH/2 - 200,SCREEN_HEIGHT/2,400,75])  
+    if SCREEN_WIDTH/2 - 200 <= mouse[0] <= SCREEN_WIDTH/2 + 200 and SCREEN_HEIGHT/2 <= mouse[1] <= SCREEN_HEIGHT/2 +75:  
+        pygame.draw.rect(SCREEN,color_light,[SCREEN_WIDTH/2 - 200, SCREEN_HEIGHT/2, 400, 75])  
         canClickRHI = True
-        if canClickRHI and pygame.MOUSEBUTTONDOWN:
-            #play right hand improv app
-            pass
+        pass
     else:  
-        pygame.draw.rect(SCREEN,color_dark,[SCREEN_WIDTH/2 - 200,SCREEN_HEIGHT/2,400,75])  
+        pygame.draw.rect(SCREEN,color_dark,[SCREEN_WIDTH/2 - 200, SCREEN_HEIGHT/2, 400, 75])  
         canClickRHI = False
       
-    # superimposing the text onto our button  
-    SCREEN.blit(text , (SCREEN_WIDTH/2 -200,SCREEN_HEIGHT/2))  
+    # # superimposing the text onto our button  
+    SCREEN.blit(text , (SCREEN_WIDTH/2 -180,SCREEN_HEIGHT/2 +18.75))  
     
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
+        if event.type == pygame.MOUSEBUTTONDOWN and canClickRHI:
+            runningMainMenu = False #kills main menu
+            runningRHI = True #Starts while loop for right hand improv app
 
     pygame.display.update() 
 
+while runningRHI == True:
 
-running = False
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit() 
+
+    SCREEN.fill((20,25,20))
+    pygame.display.update()
+
+
+
 
 
 
