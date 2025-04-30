@@ -3,6 +3,7 @@ import pygame.midi as midi
 import pygame.mixer as mixer
 import sqlite3
 import pygame.time as time
+import classes
 
 pygame.init()
 midi.init()
@@ -15,7 +16,6 @@ midi_out.set_instrument(0)
 
 def generateChords(key, tonality):
     if key == 0:
-        #choose random notes
         pass
 
 def rightHandImprov():
