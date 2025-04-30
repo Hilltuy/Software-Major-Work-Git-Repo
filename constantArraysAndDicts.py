@@ -22,4 +22,5 @@ AccidentalsIntegerNotation = {
 degreeTonalityForModes = {
     'Major':['Major','Natural Minor','Natural Minor','Major','Major','Natural Minor','Diminished'],
     'Natural Minor':['Natural Minor','Diminished','Major','Natural Minor','Major','Major','Major'],
+    'Diminished':['Diminished','Diminished','Diminished','Diminished','Diminished','Diminished','Diminished']
 }
