@@ -3,7 +3,6 @@ from constantArraysAndDicts import degreeTonalityForModes
 from constantArraysAndDicts import AccidentalsIntegerNotation
 import sqlite3
 import pygame.midi as midi
-import pygame.time as time
 midi.init()
 midi_out = midi.Output(midi.get_default_output_id(),0)
 
@@ -77,42 +76,22 @@ class Scale():
 
         return scaleInKey
 
-    def playDegree(self,degree=int,accidental=str):#,tonality=str):
+    def playDegree(self,degree=int,accidental=str,tonality=str):
         #if type(tonality) == str:
         #    pass
         chord = []
-        rootNote = self.notes[(degree-1)] #sets root note of degree
-
-        rootNote += AccidentalsIntegerNotation[accidental]
-
-        ansi = midi.midi_to_ansi_note(rootNote)
-        print("ansi before: "+ansi)
-    
-        resultAnsi = ""
-        for index in range(len(ansi)):
-            if not ansi[index].isdigit():
-                resultAnsi += ansi[index]
-    
-        print("ansi after: "+resultAnsi)
-
-        rootNoteScale = self.setScale(resultAnsi,degreeTonalityForModes[self.mode][degree - 1],self.octave + 1)     
-        
-        print("setting to scale: "+resultAnsi+" "+degreeTonalityForModes[self.mode][degree - 1]+" "+str(self.octave))
-        print("Root note of degree: "+resultAnsi)
-        print("Tonality of current degree: "+degreeTonalityForModes[self.mode][degree - 1]+"\n")
+        rootNote = self.notes[(degree-1)+AccidentalsIntegerNotation[accidental]] #sets root note of degree
+        rootNoteScale = self.setScale(midi.midi_to_ansi_note(rootNote)[0],degreeTonalityForModes[self.mode][degree - 1],self.octave + 1)
+        print(midi.midi_to_ansi_note(rootNote) + degreeTonalityForModes[self.mode][degree - 1] + str((self.octave + 1)))
+        print(rootNoteScale)
         
         diadNote = rootNoteScale[2]
         triadNote = rootNoteScale[4]
-        #print('\n'+midi.midi_to_ansi_note(diadNote)+midi.midi_to_ansi_note(triadNote))
+        print('\n'+midi.midi_to_ansi_note(diadNote)+midi.midi_to_ansi_note(triadNote))
         chord.extend([rootNote,diadNote,triadNote])
-        #print(chord)
+        print(chord)
         for note in chord:
-            midi_out.note_on(note,100)
-            #print(midi.midi_to_ansi_note(note))
-        time.delay(1000)
-        for note in chord:
-                midi_out.note_off(note,0)
-            
+            print(midi.midi_to_ansi_note(note))
 
     def get_notes(self):
         return self.notes

@@ -5,6 +5,6 @@
 -- VALUES ('Diminished','0,2,3,5,6,8,9,11');
 
 INSERT INTO modeTable(mode,scale)
-VALUES ('Dorian','0,2,3,5,7,9,10');
+VALUES ('Melodic Minor','0,2,3,5,7,9,11');
 
 

@@ -59,7 +59,7 @@ while runningMainMenu == True:
         pygame.draw.rect(SCREEN,color_dark,[SCREEN_WIDTH/2 - 200, SCREEN_HEIGHT/2, 400, 75])  
         canClickRHI = False
       
-    # # superimposing the text onto our button  
+    # # superimposing the text onto the button  
     SCREEN.blit(text , (SCREEN_WIDTH/2 -180,SCREEN_HEIGHT/2 +18.75))  
     
 
