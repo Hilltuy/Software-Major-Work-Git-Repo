@@ -11,29 +11,30 @@ SCREEN_HEIGHT = 900
 
 SCREEN = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT),pygame.RESIZABLE)
 
-# white color  
-white = (255,255,255)  
-  
-# light shade of the button  
-color_light = (170,170,170)  
-  
-# dark shade of the button  
-color_dark = (100,100,100)      
+
+gray = (100,100,100)      
 
 # defining a font  
 
 
 def modulateColour(colour,lightOrDark):
-    if lightOrDark.type() is str:
-        if lightOrDark == 'Light':
-            if colour != (0,0,0):
-                #iterate through tuple to check if its possible
-                return colour - (10,10,10)
-        elif lightOrDark == 'Dark':
-            #add stuffs
-            return colour
-    else:
-        pass
+    if lightOrDark == 'Dark':
+        colour = list(colour)
+        for i in range(len(colour)):
+            if colour[i] > 70:
+                colour[i] -= 70
+        return tuple(colour)
+
+    elif lightOrDark == 'Light':
+        colour = list(colour)
+        for i in range(len(colour)):
+            if colour[i] < 185:
+                colour[i] += 70
+        return tuple(colour)
+    
+    elif lightOrDark == 'Normal':
+        return tuple(colour)
+
 
 
 # to easily write text onto screen
@@ -93,14 +94,14 @@ while runningRHI == True:
     mouse = pygame.mouse.get_pos()
     SCREEN.fill((20,25,20))
 
-    SCREEN.blit(text('Right Hand Improv Setup',color,64) , (SCREEN_WIDTH/2 - 280,80))
+    SCREEN.blit(text('Right Hand Improv Setup',(255,255,255),64) , (SCREEN_WIDTH/2 - 280,80))
 
 
     #if hovering over button
     if SCREEN_WIDTH/2 - 200 <= mouse[0] <= SCREEN_WIDTH/2 + 200 and SCREEN_HEIGHT/2 <= mouse[1] <= SCREEN_HEIGHT/2 +75:  
-        drawButton(color_light,400,75,SCREEN_WIDTH/2 - 200,SCREEN_HEIGHT/2)
+        drawButton(modulateColour(gray,'Light'),400,75,SCREEN_WIDTH/2 - 200,SCREEN_HEIGHT/2)
     else:  
-        drawButton(color_dark,400,75,SCREEN_WIDTH/2 - 200,SCREEN_HEIGHT/2)
+        drawButton(modulateColour(gray,'Normal'),400,75,SCREEN_WIDTH/2 - 200,SCREEN_HEIGHT/2)
 
 
 
