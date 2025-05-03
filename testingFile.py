@@ -14,5 +14,5 @@ octave = int(octave)
 myScale = Scale(key,tonality,octave)
 for i in range(20):
     myScale.playDegree(random.randint(1,7),'Natural')
-
+    time.delay(1000)
     #make time customizable

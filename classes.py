@@ -92,7 +92,7 @@ class Scale():
         print(chord)
         for note in chord:
             print(midi.midi_to_ansi_note(note))
-
+            midi_out.note_on(note,80)
     def get_notes(self):
         return self.notes
 

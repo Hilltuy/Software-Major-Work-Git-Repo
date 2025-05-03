@@ -1,7 +1,7 @@
 import pygame
 import pygame.midi as midi
 from classes import Scale
-
+import constantArraysAndDicts
 pygame.init()
 midi.init()
 mainClock = pygame.time.Clock()
@@ -53,8 +53,8 @@ def drawButton(colour,width,height,x,y):
 get_devices()
 CMajorScale = Scale('C','Major',4)
 #CMajorScale.playDegree(2,natural,minor)
-
-# canClickRHI = False
+##'cc' is 'can click' abbreviated
+# ccRHI = False
 # runningMainMenu = True
 # runningRHI = False
 
@@ -81,7 +81,7 @@ CMajorScale = Scale('C','Major',4)
 #     for event in pygame.event.get():
 #         if event.type == pygame.QUIT:
 #             pygame.quit()
-#         if event.type == pygame.MOUSEBUTTONDOWN and canClickRHI:
+#         if event.type == pygame.MOUSEBUTTONDOWN and ccRHI:
 #             runningMainMenu = False #kills main menu
 #             runningRHI = True #Starts while loop for right hand improv app
 
@@ -89,24 +89,58 @@ CMajorScale = Scale('C','Major',4)
 
 runningMainMenu = False
 runningRHI = True
-
+keySelected = 0
+ccKeySelect = False
+tonalitySelected = 0
+ccTonalitySelect = False
+scaleKeyList = list(constantArraysAndDicts.keyDistancesFromC.keys())
+modalitiesList = list(constantArraysAndDicts.degreeTonalityForModes.keys())
 while runningRHI == True:
     mouse = pygame.mouse.get_pos()
     SCREEN.fill((20,25,20))
 
-    SCREEN.blit(text('Right Hand Improv Setup',(255,255,255),64) , (SCREEN_WIDTH/2 - 280,80))
+    #KEY SELECTION BUTTON
+    if SCREEN_WIDTH/2 - 300 <= mouse[0] <= SCREEN_WIDTH/2 -200 and SCREEN_HEIGHT/2 <= mouse[1] <= SCREEN_HEIGHT/2 +100:  
+        drawButton(modulateColour(gray,'Light'),100,100,SCREEN_WIDTH/2 - 300,SCREEN_HEIGHT/2)
+        ccKeySelect = True
+    else:
+        ccKeySelect = False
+        drawButton(modulateColour(gray,'Normal'),100,100,SCREEN_WIDTH/2 - 300,SCREEN_HEIGHT/2)
 
+    #TONALITY SELECTION BUTTON
+    if SCREEN_WIDTH/2 - 100 <= mouse[0] <= SCREEN_WIDTH/2 - 0 and SCREEN_HEIGHT/2 <= mouse[1] <= SCREEN_HEIGHT/2 +100:  
+        drawButton(modulateColour(gray,'Light'),100,100,SCREEN_WIDTH/2 - 100,SCREEN_HEIGHT/2)
+        ccTonalitySelect = True
+    else: 
+        ccTonalitySelect = False
+        drawButton(modulateColour(gray,'Normal'),100,100,SCREEN_WIDTH/2 - 100,SCREEN_HEIGHT/2)
 
-    #if hovering over button
-    if SCREEN_WIDTH/2 - 200 <= mouse[0] <= SCREEN_WIDTH/2 + 200 and SCREEN_HEIGHT/2 <= mouse[1] <= SCREEN_HEIGHT/2 +75:  
-        drawButton(modulateColour(gray,'Light'),400,75,SCREEN_WIDTH/2 - 200,SCREEN_HEIGHT/2)
-    else:  
-        drawButton(modulateColour(gray,'Normal'),400,75,SCREEN_WIDTH/2 - 200,SCREEN_HEIGHT/2)
+    #Title
+    SCREEN.blit(text('Right Hand Improv Setup',(255,255,255),64) , (SCREEN_WIDTH/2 - 320,80))
 
+    #Key selection button TEXT
+    SCREEN.blit(text(scaleKeyList[keySelected],(255,255,255),64) , (SCREEN_WIDTH/2 - 282,360))   
+
+    #Tonality selection button TEXT
+    SCREEN.blit(text(modalitiesList[tonalitySelected],(255,255,255),64) , (SCREEN_WIDTH/2 - 82,360))  
 
 
     for event in pygame.event.get():
-        if event.type == pygame.QUIT:
+        #if KEY button is pressed
+        if event.type == pygame.MOUSEBUTTONDOWN and ccKeySelect:
+            if keySelected < len(scaleKeyList)-1:
+                keySelected += 1
+            else:
+                keySelected = 0
+
+        #if TONALITY button is pressed
+        if event.type == pygame.MOUSEBUTTONDOWN and ccTonalitySelect:
+            if tonalitySelected < len(modalitiesList)-1:
+                tonalitySelected += 1
+            else:
+                tonalitySelected = 0
+
+        elif event.type == pygame.QUIT:
             pygame.quit() 
 
     pygame.display.update()
