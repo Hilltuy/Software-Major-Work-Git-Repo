@@ -13,16 +13,18 @@ SCREEN = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT),pygame.RESIZABLE)
 
 
 gray = (100,100,100)      
-
-# defining a font  
-
+green = (93, 227, 129)
+orange = (227, 156, 93)
+skyBlue = (93, 167, 227)
+purple = (129, 0, 176)
+darkRed = (84, 62, 62)
 
 def modulateColour(colour,lightOrDark):
     if lightOrDark == 'Dark':
         colour = list(colour)
         for i in range(len(colour)):
-            if colour[i] > 70:
-                colour[i] -= 70
+            if colour[i] > 30:
+                colour[i] -= 30
         return tuple(colour)
 
     elif lightOrDark == 'Light':
@@ -88,42 +90,82 @@ CMajorScale = Scale('C','Major',4)
 #     pygame.display.update() 
 
 runningMainMenu = False
-runningRHI = True
+runningRHIMenu = True
 keySelected = 0
 ccKeySelect = False
 tonalitySelected = 0
 ccTonalitySelect = False
+octaveSelected = 3
+ccOctaveSelect = False
+repetitionsSelected = 4
+ccRepetitionSelect = False
+playSelected = False
+ccPlaySelect = False
 scaleKeyList = list(constantArraysAndDicts.keyDistancesFromC.keys())
 modalitiesList = list(constantArraysAndDicts.degreeTonalityForModes.keys())
-while runningRHI == True:
+while runningRHIMenu == True:
     mouse = pygame.mouse.get_pos()
     SCREEN.fill((20,25,20))
 
-    #KEY SELECTION BUTTON
+    #KEY selection button
     if SCREEN_WIDTH/2 - 300 <= mouse[0] <= SCREEN_WIDTH/2 -200 and SCREEN_HEIGHT/2 <= mouse[1] <= SCREEN_HEIGHT/2 +100:  
-        drawButton(modulateColour(gray,'Light'),100,100,SCREEN_WIDTH/2 - 300,SCREEN_HEIGHT/2)
+        drawButton(modulateColour(green,'Light'),100,100,SCREEN_WIDTH/2 - 300,SCREEN_HEIGHT/2)
         ccKeySelect = True
     else:
         ccKeySelect = False
-        drawButton(modulateColour(gray,'Normal'),100,100,SCREEN_WIDTH/2 - 300,SCREEN_HEIGHT/2)
+        drawButton(modulateColour(green,'Normal'),100,100,SCREEN_WIDTH/2 - 300,SCREEN_HEIGHT/2)
 
-    #TONALITY SELECTION BUTTON
+    #TONALITY selection button
     if SCREEN_WIDTH/2 - 100 <= mouse[0] <= SCREEN_WIDTH/2 - 0 and SCREEN_HEIGHT/2 <= mouse[1] <= SCREEN_HEIGHT/2 +100:  
-        drawButton(modulateColour(gray,'Light'),100,100,SCREEN_WIDTH/2 - 100,SCREEN_HEIGHT/2)
+        drawButton(modulateColour(orange,'Light'),100,100,SCREEN_WIDTH/2 - 100,SCREEN_HEIGHT/2)
         ccTonalitySelect = True
     else: 
         ccTonalitySelect = False
-        drawButton(modulateColour(gray,'Normal'),100,100,SCREEN_WIDTH/2 - 100,SCREEN_HEIGHT/2)
+        drawButton(modulateColour(orange,'Normal'),100,100,SCREEN_WIDTH/2 - 100,SCREEN_HEIGHT/2)
+
+    #OCTAVE selection button
+    if SCREEN_WIDTH/2 + 100 <= mouse[0] <= SCREEN_WIDTH/2 + 200 and SCREEN_HEIGHT/2 <= mouse[1] <= SCREEN_HEIGHT/2 +100:  
+        drawButton(modulateColour(skyBlue,'Light'),100,100,SCREEN_WIDTH/2 + 100,SCREEN_HEIGHT/2)
+        ccOctaveSelect = True
+    else: 
+        ccOctaveSelect = False
+        drawButton(modulateColour(skyBlue,'Normal'),100,100,SCREEN_WIDTH/2 + 100,SCREEN_HEIGHT/2)
+
+    #REPETITIONS selection button
+    if SCREEN_WIDTH/2 + 300 <= mouse[0] <= SCREEN_WIDTH/2 + 400 and SCREEN_HEIGHT/2 <= mouse[1] <= SCREEN_HEIGHT/2 +100:  
+        drawButton(modulateColour(purple,'Light'),100,100,SCREEN_WIDTH/2 + 300,SCREEN_HEIGHT/2)
+        ccRepetitionSelect = True
+    else: 
+        ccRepetitionSelect = False
+        drawButton(modulateColour(purple,'Normal'),100,100,SCREEN_WIDTH/2 + 300,SCREEN_HEIGHT/2)
+
+
+    #PLAY button
+    if SCREEN_WIDTH/2 + -150 <= mouse[0] <= SCREEN_WIDTH/2 + 250 and SCREEN_HEIGHT/2 + 250 <= mouse[1] <= SCREEN_HEIGHT/2 +400:  
+        drawButton(modulateColour(darkRed,'Dark'),400,150,SCREEN_WIDTH/2 -150,SCREEN_HEIGHT/2 +250)
+        ccPlaySelect = True
+    else: 
+        ccPlaySelect = False
+        drawButton(modulateColour(darkRed,'Normal'),400,150,SCREEN_WIDTH/2-150,SCREEN_HEIGHT/2 +250)
+
 
     #Title
     SCREEN.blit(text('Right Hand Improv Setup',(255,255,255),64) , (SCREEN_WIDTH/2 - 320,80))
 
-    #Key selection button TEXT
-    SCREEN.blit(text(scaleKeyList[keySelected],(255,255,255),64) , (SCREEN_WIDTH/2 - 282,360))   
+    #KEY selection button TEXT
+    SCREEN.blit(text(scaleKeyList[keySelected],(255,255,255),64) , (SCREEN_WIDTH/2 - 282,385))   
 
-    #Tonality selection button TEXT
-    SCREEN.blit(text(modalitiesList[tonalitySelected],(255,255,255),64) , (SCREEN_WIDTH/2 - 82,360))  
+    #TONALITY selection button TEXT
+    SCREEN.blit(text(modalitiesList[tonalitySelected],(255,255,255),50 - (len(modalitiesList[tonalitySelected])*2)) , (SCREEN_WIDTH/2 - 100,400))  
 
+    #OCTAVE selection button TEXT
+    SCREEN.blit(text(str(octaveSelected),(255,255,255),48), (SCREEN_WIDTH/2 + 140,385))
+
+    #REPETITONS selection button TEXT
+    SCREEN.blit(text(str(repetitionsSelected),(255,255,255),48), (SCREEN_WIDTH/2 + 340,385))
+
+    #PLAY button TEXT
+    SCREEN.blit(text('Play with Setup',(255,255,255),50) , (SCREEN_WIDTH/2 - 120,SCREEN_HEIGHT/2 +300))
 
     for event in pygame.event.get():
         #if KEY button is pressed
@@ -134,18 +176,40 @@ while runningRHI == True:
                 keySelected = 0
 
         #if TONALITY button is pressed
-        if event.type == pygame.MOUSEBUTTONDOWN and ccTonalitySelect:
+        elif event.type == pygame.MOUSEBUTTONDOWN and ccTonalitySelect:
             if tonalitySelected < len(modalitiesList)-1:
                 tonalitySelected += 1
             else:
                 tonalitySelected = 0
+
+        #if OCTAVE button is pressed
+        elif event.type == pygame.MOUSEBUTTONDOWN and ccOctaveSelect:
+            if octaveSelected < 7:
+                octaveSelected += 1
+            else:
+                octaveSelected = 3
+
+        #if REPETITION button is pressed
+        elif event.type == pygame.MOUSEBUTTONDOWN and ccRepetitionSelect:
+            if repetitionsSelected < 48:
+                repetitionsSelected += 1
+            else:
+                repetitionsSelected = 1
+
+        #if PLAY button is pressed
+        elif event.type == pygame.MOUSEBUTTONDOWN and ccPlaySelect:
+            if playSelected == False:
+                runningRHIMenu = False
+                playSelected = True
 
         elif event.type == pygame.QUIT:
             pygame.quit() 
 
     pygame.display.update()
 
-
+while playSelected == True: 
+    #actual improvisation app
+    pass
 
 
 
