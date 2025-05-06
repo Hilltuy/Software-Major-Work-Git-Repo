@@ -76,12 +76,22 @@ class Scale():
 
         return scaleInKey
 
+    def cleanAnsi(self,midiNote):
+        ansi = midi.midi_to_ansi_note(midiNote)
+        for i in range(len(ansi)):
+            if ansi[i].isdigit():
+                print("ansi char: "+ansi[i])
+                cleanAnsi = ansi.replace(ansi[i],'')
+        return cleanAnsi
+
     def playDegree(self,degree=int,accidental=str,tonality=str):
         #if type(tonality) == str:
         #    pass
         chord = []
         rootNote = self.notes[(degree-1)+AccidentalsIntegerNotation[accidental]] #sets root note of degree
-        rootNoteScale = self.setScale(midi.midi_to_ansi_note(rootNote)[0],degreeTonalityForModes[self.mode][degree - 1],self.octave + 1)
+        rootAnsi = self.cleanAnsi(rootNote)
+
+        rootNoteScale = self.setScale(rootAnsi,degreeTonalityForModes[self.mode][degree - 1],self.octave + 1)
         print(midi.midi_to_ansi_note(rootNote) + degreeTonalityForModes[self.mode][degree - 1] + str((self.octave + 1)))
         print(rootNoteScale)
         

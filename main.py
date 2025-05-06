@@ -226,11 +226,17 @@ while playSelected == True:
             pygame.quit() 
 
         elif event.type == pygame.USEREVENT:
+            #randomly selects a chord degree to play from the scale
             currentDegree = random.randint(1,len(currentScale.get_notes()) - 1)
+            #sets the tonality of the current chord being played
+            currentDegreeTonality = constantArraysAndDicts.degreeTonalityForModes[modalitiesList[tonalitySelected]][currentDegree - 1]
+            #print('current degree: '+str(currentDegree))
+            #print("current tonality: "+modalitiesList[tonalitySelected])
             currentScale.playDegree(currentDegree,'Natural')
-            currentChordDisplay = str(currentScale.get_notes()[currentDegree - 1]) +" "+ scaleKeyList[currentDegree - 1]
             
-            #get display to work like (C Minor, D minor)
+            currentChordDisplay = str(currentScale.cleanAnsi((currentScale.get_notes()[currentDegree - 1]))+" "+currentDegreeTonality)
+        
+
     pygame.display.update()
 
 
