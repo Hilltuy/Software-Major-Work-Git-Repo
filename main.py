@@ -2,6 +2,7 @@ import pygame
 import pygame.midi as midi
 from classes import Scale
 import constantArraysAndDicts
+import random
 pygame.init()
 midi.init()
 mainClock = pygame.time.Clock()
@@ -207,9 +208,30 @@ while runningRHIMenu == True:
 
     pygame.display.update()
 
-while playSelected == True: 
+
+currentScale = Scale(scaleKeyList[keySelected],modalitiesList[tonalitySelected],octaveSelected)
+currentChordDisplay = ''
+#pygame.USEREVENT represents the first event slot, pygame.USEREVENT + 1 would represent the second.
+pygame.time.set_timer(pygame.USEREVENT,1000)
+while playSelected == True:
+    mouse = pygame.mouse.get_pos()
+    SCREEN.fill((20,25,20))
     #actual improvisation app
-    pass
+
+    if len(currentChordDisplay) > 0:
+        SCREEN.blit(text(currentChordDisplay,(255,255,255),48),(SCREEN_WIDTH/2 - 120,SCREEN_HEIGHT/2 +300))
+
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit() 
+
+        elif event.type == pygame.USEREVENT:
+            currentDegree = random.randint(1,len(currentScale.get_notes()) - 1)
+            currentScale.playDegree(currentDegree,'Natural')
+            currentChordDisplay = str(currentScale.get_notes()[currentDegree - 1]) +" "+ scaleKeyList[currentDegree - 1]
+            
+            #get display to work like (C Minor, D minor)
+    pygame.display.update()
 
 
 
