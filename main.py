@@ -38,8 +38,6 @@ def modulateColour(colour,lightOrDark):
     elif lightOrDark == 'Normal':
         return tuple(colour)
 
-
-
 # to easily write text onto screen
 def text(text,color,font_size):
     smallfont = pygame.font.SysFont('Helvetica',font_size)  
@@ -211,7 +209,16 @@ while runningRHIMenu == True:
 
 currentScale = Scale(scaleKeyList[keySelected],modalitiesList[tonalitySelected],octaveSelected)
 currentChordDisplay = ''
-#pygame.USEREVENT represents the first event slot, pygame.USEREVENT + 1 would represent the second.
+chordsList = []
+
+# for i in range(repetitionsSelected):
+#     currentDegree = random.randint(1,len(currentScale.get_notes()) - 1)
+#     #sets the tonality of the current chord being played
+#     currentDegreeTonality = constantArraysAndDicts.degreeTonalityForModes[modalitiesList[tonalitySelected]][currentDegree - 1]
+#     currentChord = currentScale.playDegree(currentDegree,'Natural')
+#     chordsList.append([currentChord,currentDegreeTonality])
+
+#pygame.USEREVENT represents the first event slot, pygame.USEREVENT + 1 would represent the second slot.
 pygame.time.set_timer(pygame.USEREVENT,1000)
 while playSelected == True:
     mouse = pygame.mouse.get_pos()
@@ -233,7 +240,6 @@ while playSelected == True:
             #print('current degree: '+str(currentDegree))
             #print("current tonality: "+modalitiesList[tonalitySelected])
             currentScale.playDegree(currentDegree,'Natural')
-            
             currentChordDisplay = str(currentScale.cleanAnsi((currentScale.get_notes()[currentDegree - 1]))+" "+currentDegreeTonality)
         
 
