@@ -102,6 +102,7 @@ playSelected = False
 ccPlaySelect = False
 scaleKeyList = list(constantArraysAndDicts.keyDistancesFromC.keys())
 modalitiesList = list(constantArraysAndDicts.degreeTonalityForModes.keys())
+
 while runningRHIMenu == True:
     mouse = pygame.mouse.get_pos()
     SCREEN.fill((20,25,20))
@@ -211,13 +212,17 @@ currentScale = Scale(scaleKeyList[keySelected],modalitiesList[tonalitySelected],
 currentChordDisplay = ''
 chordsList = []
 
-# for i in range(repetitionsSelected):
-#     currentDegree = random.randint(1,len(currentScale.get_notes()) - 1)
-#     #sets the tonality of the current chord being played
-#     currentDegreeTonality = constantArraysAndDicts.degreeTonalityForModes[modalitiesList[tonalitySelected]][currentDegree - 1]
-#     currentChord = currentScale.playDegree(currentDegree,'Natural')
-#     chordsList.append([currentChord,currentDegreeTonality])
+for i in range(repetitionsSelected):
+    currentDegree = random.randint(1,len(currentScale.get_notes()) - 1)
+    #sets the tonality of the current chord being played
+    currentDegreeTonality = constantArraysAndDicts.degreeTonalityForModes[modalitiesList[tonalitySelected]][currentDegree - 1]
+    #currentChord = currentScale.playDegree(currentDegree,'Natural')
+    chordsList.append(currentDegree)
 
+    #for chordNotesAndTonality in chordsList:
+        #currentScale.playDegree(chordNotesAndTonality[0],'Natural')
+        
+chordCount = -1
 #pygame.USEREVENT represents the first event slot, pygame.USEREVENT + 1 would represent the second slot.
 pygame.time.set_timer(pygame.USEREVENT,1000)
 while playSelected == True:
@@ -225,23 +230,32 @@ while playSelected == True:
     SCREEN.fill((20,25,20))
     #actual improvisation app
 
-    if len(currentChordDisplay) > 0:
-        SCREEN.blit(text(currentChordDisplay,(255,255,255),48),(SCREEN_WIDTH/2 - 120,SCREEN_HEIGHT/2 +300))
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit() 
 
         elif event.type == pygame.USEREVENT:
-            #randomly selects a chord degree to play from the scale
-            currentDegree = random.randint(1,len(currentScale.get_notes()) - 1)
-            #sets the tonality of the current chord being played
-            currentDegreeTonality = constantArraysAndDicts.degreeTonalityForModes[modalitiesList[tonalitySelected]][currentDegree - 1]
-            #print('current degree: '+str(currentDegree))
-            #print("current tonality: "+modalitiesList[tonalitySelected])
-            currentScale.playDegree(currentDegree,'Natural')
-            currentChordDisplay = str(currentScale.cleanAnsi((currentScale.get_notes()[currentDegree - 1]))+" "+currentDegreeTonality)
-        
+            chordCount += 1
+            currentScale.playDegree(chordsList[chordCount],'Natural')
+
+            # #randomly selects a chord degree to play from the scale
+            # currentDegree = random.randint(1,len(currentScale.get_notes()) - 1)
+            # #sets the tonality of the current chord being played
+            # currentDegreeTonality = constantArraysAndDicts.degreeTonalityForModes[modalitiesList[tonalitySelected]][currentDegree - 1]
+            # #print('current degree: '+str(currentDegree))
+            # #print("current tonality: "+modalitiesList[tonalitySelected])
+            # currentScale.playDegree(currentDegree,'Natural')
+
+            currentChordDisplay = str(currentScale.cleanAnsi((currentScale.get_notes()[chordsList[chordCount] - 1]))+" "+currentDegreeTonality)
+    
+    nextChordDisplay = str(currentScale.cleanAnsi((currentScale.get_notes()[chordsList[chordCount + 1] - 1]))+" "+currentDegreeTonality)
+    
+    if len(currentChordDisplay) > 0:
+        SCREEN.blit(text(currentChordDisplay,(255,255,255),48),(SCREEN_WIDTH/2 - 120,SCREEN_HEIGHT/2 +300))
+
+    if len(currentChordDisplay) > 0:  
+        SCREEN.blit(text('Next chord: '+nextChordDisplay,(255,255,255),48),(SCREEN_WIDTH/2 +250,SCREEN_HEIGHT/2 +300))
 
     pygame.display.update()
 
