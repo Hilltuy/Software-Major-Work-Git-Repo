@@ -240,6 +240,7 @@ while playSelected == True:
             chordCount += 1
             currentScale.playDegree(chordsList[chordCount],'Natural')
 
+
             #uses mode dictionary to display the correct tonality (major, minor, etc) for the current chord. - '- 1' is added to convert 1-based number system to zero-based for python's array indexing 
             currentDegreeTonality = constantArraysAndDicts.degreeTonalityForModes[modalitiesList[tonalitySelected]][chordsList[chordCount] - 1]
 
@@ -264,9 +265,9 @@ while playSelected == True:
         SCREEN.blit(text(currentChordDisplay,(255,255,255),48),(SCREEN_WIDTH/2 - 120,SCREEN_HEIGHT/2))
 
     if len(currentChordDisplay) > 0:  
-        SCREEN.blit(text('Next chord: '+nextChordDisplay,(255,255,255),34),(SCREEN_WIDTH/2 - 150,SCREEN_HEIGHT/2 +110))
+        SCREEN.blit(text('Next chord: '+nextChordDisplay,skyBlue,34),(SCREEN_WIDTH/2 - 150,SCREEN_HEIGHT/2 +110))
 
-
+    SCREEN.blit(text('Bar count: '+str(chordCount + 1)+'/'+str(repetitionsSelected),(255,255,255),34),(SCREEN_WIDTH/2 - 800,SCREEN_HEIGHT/2 -450))
 
     pygame.display.update()
 
