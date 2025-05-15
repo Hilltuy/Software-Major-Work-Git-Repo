@@ -328,29 +328,32 @@ while appRunning == True:
         SCREEN.fill((20,25,20))    
         SCREEN.blit(text('Repetitions Completed!',(255,255,255),68),(SCREEN_WIDTH/2 -280,SCREEN_HEIGHT/2 - 150))
 
-
         #PLAY AGAIN button
-        if SCREEN_WIDTH/2 + -170 <= mouse[0] <= SCREEN_WIDTH/2 + 230 and SCREEN_HEIGHT/2 + 250 <= mouse[1] <= SCREEN_HEIGHT/2 +400:  
-            drawButton(modulateColour(orange,'Dark'),400,150,SCREEN_WIDTH/2 -170,SCREEN_HEIGHT/2 +250)
+        if SCREEN_WIDTH/2 + -170 <= mouse[0] <= SCREEN_WIDTH/2 + 230 and SCREEN_HEIGHT/2 + 50 <= mouse[1] <= SCREEN_HEIGHT/2 +200:  
+            drawButton(modulateColour(orange,'Dark'),400,150,SCREEN_WIDTH/2 -170,SCREEN_HEIGHT/2 +50)
             ccRHIPlayAgain = True
         else: 
             ccRHIPlayAgain = False
-            drawButton(modulateColour(orange,'Normal'),400,150,SCREEN_WIDTH/2-170,SCREEN_HEIGHT/2 +250)
+            drawButton(modulateColour(orange,'Normal'),400,150,SCREEN_WIDTH/2-170,SCREEN_HEIGHT/2 +50)
 
         #BACK TO MENU button
         if SCREEN_WIDTH/2 + -170 <= mouse[0] <= SCREEN_WIDTH/2 + 230 and SCREEN_HEIGHT/2 + 250 <= mouse[1] <= SCREEN_HEIGHT/2 +400:  
-            pass
+            drawButton(modulateColour(darkRed,'Dark'),400,150,SCREEN_WIDTH/2 -170,SCREEN_HEIGHT/2 +250)      
+            ccBackToMain = True
         else: 
-            pass
+            drawButton(modulateColour(darkRed,'Normal'),400,150,SCREEN_WIDTH/2-170,SCREEN_HEIGHT/2 +250)
+            ccBackToMain = False
 
 
         #PLAY AGAIN text
-        SCREEN.blit(text('Back to Setup',(255,255,255),50) , (SCREEN_WIDTH/2 - 120,SCREEN_HEIGHT/2 +300))
+        SCREEN.blit(text('Back to Setup',(255,255,255),50) , (SCREEN_WIDTH/2 - 120,SCREEN_HEIGHT/2 +100))
+
+        #MAIN MENU text
+        SCREEN.blit(text('Back to Main Menu',(255,255,255),40) , (SCREEN_WIDTH/2 - 150,SCREEN_HEIGHT/2 +300))
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
-
 
             #run setup again
             elif event.type == pygame.MOUSEBUTTONDOWN and ccRHIPlayAgain:
