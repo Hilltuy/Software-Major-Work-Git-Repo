@@ -12,6 +12,8 @@ SCREEN_HEIGHT = 900
 
 SCREEN = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT),pygame.RESIZABLE)
 
+midi_in = midi.Input(midi.get_default_input_id(),0)
+midi_out = midi.Output(midi.get_default_output_id(),0)
 
 gray = (100,100,100)      
 green = (93, 227, 129)
@@ -117,7 +119,6 @@ appRunning = True
 
 rhiFinishedRunning = False
 
-
 while appRunning == True:
 
     while runningMainMenu == True:
@@ -137,7 +138,7 @@ while appRunning == True:
             ccRHI = False
         
         # # superimposing the text onto the button  
-        SCREEN.blit(text('Right Hand Improv Practice',(255,255,255),48) , (SCREEN_WIDTH/2 -180,SCREEN_HEIGHT/2 +18.75))  
+        SCREEN.blit(text('Right Hand Improv Practice',(255,255,255),30) , (SCREEN_WIDTH/2 -180,SCREEN_HEIGHT/2 +18.75))  
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -277,6 +278,7 @@ while appRunning == True:
         SCREEN.fill((20,25,20))
         #actual improvisation app
 
+        midi_out.write(midi_in.read(1))
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
