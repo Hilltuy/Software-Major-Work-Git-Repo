@@ -12,9 +12,6 @@ SCREEN_HEIGHT = 900
 
 SCREEN = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT),pygame.RESIZABLE)
 
-midi_in = midi.Input(midi.get_default_input_id(),0)
-midi_out = midi.Output(midi.get_default_output_id(),0)
-
 gray = (100,100,100)      
 green = (93, 227, 129)
 orange = (227, 156, 93)
@@ -278,7 +275,7 @@ while appRunning == True:
         SCREEN.fill((20,25,20))
         #actual improvisation app
 
-        midi_out.write(midi_in.read(1))
+        currentScale.playerInput()
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
