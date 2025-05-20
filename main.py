@@ -308,7 +308,6 @@ while appRunning == True:
                     rhiFinishedRunning = True
 
 
-
         if len(currentChordDisplay) > 0:
             SCREEN.blit(text(currentChordDisplay,(255,255,255),48),(SCREEN_WIDTH/2 - 120,SCREEN_HEIGHT/2))
 
