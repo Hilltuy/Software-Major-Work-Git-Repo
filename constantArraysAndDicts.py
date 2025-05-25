@@ -1,3 +1,5 @@
+import sys
+
 keyDistancesFromC = {
     'C':0,
     'C#':1,
@@ -27,3 +29,6 @@ degreeTonalityForModes = {
     'Harmonic Minor':['Natural Minor','Diminished','Augmented','Natural Minor','Major','Major','Diminished'],
     'Melodic Minor':['Natural Minor','Natural Minor','Augmented','Major','Major','Diminished','Diminished'],
 }
+
+
+print(sys.getsizeof(degreeTonalityForModes))
