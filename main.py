@@ -122,6 +122,10 @@ while appRunning == True:
         
         # fills the SCREEN with a color  
         SCREEN.fill((60,25,60))
+
+        # # Title Text
+        SCREEN.blit(text('Musical Training System',(255,255,255),50) , (SCREEN_WIDTH/2 -140,SCREEN_HEIGHT/2 -400)) 
+
         
         mouse = pygame.mouse.get_pos()  
         
