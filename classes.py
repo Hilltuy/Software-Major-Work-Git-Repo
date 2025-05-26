@@ -40,6 +40,7 @@ class Scale():
                     scaleValues.append(int(char)) #add normally
 
         scaleBefore = scaleValues.copy() #Stores the uncleaned version of the scaleValues array for comparing in the cleaning algorithm
+        #print(doubleDigitLeftoverIndexes)
         #print("scale before: "+str(scaleBefore)) #for console debugging
 
         counter = -1 #counter reused for indexing
