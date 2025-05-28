@@ -197,7 +197,7 @@ while appRunning == True:
 
 
         #Title
-        SCREEN.blit(text('Right Hand Improv Setup',(255,255,255),64) , (SCREEN_WIDTH/2 - 320,80))
+        SCREEN.blit(text('Right Hand Improvisation Setup',(255,255,255),64) , (SCREEN_WIDTH/2 - 360,80))
 
         #KEY selection button TEXT
         SCREEN.blit(text(scaleKeyList[keySelected],(255,255,255),64) , (SCREEN_WIDTH/2 - 282,385))   
@@ -208,7 +208,7 @@ while appRunning == True:
         #OCTAVE selection button TEXT
         SCREEN.blit(text(str(octaveSelected),(255,255,255),48), (SCREEN_WIDTH/2 + 140,385))
 
-        #REPETITONS selection button TEXT
+        #REPETITIONS selection button TEXT
         SCREEN.blit(text(str(repetitionsSelected),(255,255,255),48), (SCREEN_WIDTH/2 + 340,385))
 
         #PLAY button TEXT
