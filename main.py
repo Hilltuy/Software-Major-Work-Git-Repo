@@ -125,8 +125,7 @@ while appRunning == True:
 
         # # Title Text
         SCREEN.blit(text('Musical Training System',(255,255,255),50) , (SCREEN_WIDTH/2 -140,SCREEN_HEIGHT/2 -400)) 
-
-        
+ 
         mouse = pygame.mouse.get_pos()  
         
         # if mouse is hovered on a button it  
@@ -283,7 +282,7 @@ while appRunning == True:
         SCREEN.fill((20,25,20))
         #actual improvisation app
 
-        #currentScale.playerInput()
+        currentScale.playerInput()
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
