@@ -6,7 +6,7 @@ import pygame.midi as midi
 midi.init()
 midi_out = midi.Output(midi.get_default_output_id(),0)
 midi_out.set_instrument(10)
-midi_in = midi.Input(midi.get_default_input_id(),0)
+#midi_in = midi.Input(midi.get_default_input_id(),0)
 
 class Scale():
     def __init__(self, key = str, mode = str, octave = int):
@@ -65,14 +65,12 @@ class Scale():
         if key in keyDistancesFromC.keys():
             for i in range(len(scaleInKey)):
                 scaleInKey[i] = int(scaleInKey[i] + keyDistancesFromC[key]) 
+                scaleInKey[i] = scaleInKey[i] + (12 * (octave + 1))
         
         # for note in scaleInKey:
         #     print("note before: "+str(note))
         #     note = note + (12 * octave)
         #     print("note after: "+str(note))
-
-        for index in range(len(scaleInKey)):
-            scaleInKey[index] = scaleInKey[index] + (12 * (octave + 1))
 
         #print(scaleInKey)
 

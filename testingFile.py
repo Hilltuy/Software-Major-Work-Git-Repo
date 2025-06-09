@@ -11,8 +11,9 @@ from pygame import time
 #     octave = input("In which octave?")
 # octave = int(octave)
 
-myScale = Scale('C','Chromatic',-1)
+myScale = Scale('C','Chromatic',4)
 
+print(myScale.get_notes())
 # for i in range(20):
 #     myScale.playDegree(random.randint(1,7),'Natural')
 #     print("clean ansi: "+myScale.cleanAnsi(myScale.get_notes()[random.randint(0,len(myScale.get_notes())-1)]))

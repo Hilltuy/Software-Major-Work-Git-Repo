@@ -282,7 +282,7 @@ while appRunning == True:
         SCREEN.fill((20,25,20))
         #actual improvisation app
 
-        currentScale.playerInput()
+        #currentScale.playerInput()
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
