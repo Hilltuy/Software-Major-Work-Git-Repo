@@ -1,7 +1,7 @@
 from classes import Scale
 import random 
 from pygame import time
-
+from pygame import midi
 #myScale.playDegree(2,'Natural')
 
 # key = input("What key would you like to play in?")
@@ -19,3 +19,5 @@ print(myScale.get_notes())
 #     print("clean ansi: "+myScale.cleanAnsi(myScale.get_notes()[random.randint(0,len(myScale.get_notes())-1)]))
 #     time.delay(1000)
 #     #make time customizable
+
+print(midi.midi_to_ansi_note(12))
