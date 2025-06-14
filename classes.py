@@ -6,7 +6,7 @@ import pygame.midi as midi
 midi.init()
 midi_out = midi.Output(midi.get_default_output_id(),0)
 midi_out.set_instrument(10)
-#midi_in = midi.Input(midi.get_default_input_id(),0)
+midi_in = midi.Input(midi.get_default_input_id(),0)
 
 class Scale():
     def __init__(self, key = str, mode = str, octave = int):

@@ -19,6 +19,8 @@ skyBlue = (93, 167, 227)
 purple = (129, 0, 176)
 darkRed = (84, 62, 62)
 
+cursorIcon = pygame.image.load('CursorIcon.png',)
+
 def modulateColour(colour,lightOrDark):
     if lightOrDark == 'Dark':
         colour = list(colour)
@@ -124,21 +126,21 @@ while appRunning == True:
         SCREEN.fill((60,25,60))
 
         # # Title Text
-        SCREEN.blit(text('Musical Training System',(255,255,255),50) , (SCREEN_WIDTH/2 -140,SCREEN_HEIGHT/2 -400)) 
+        SCREEN.blit(text('Musical Training System',(255,255,255),65) , (SCREEN_WIDTH/2 -335,SCREEN_HEIGHT/2 -400)) 
  
         mouse = pygame.mouse.get_pos()  
         
         # if mouse is hovered on a button it  
         # changes to lighter shade  
         if SCREEN_WIDTH/2 - 200 <= mouse[0] <= SCREEN_WIDTH/2 + 200 and SCREEN_HEIGHT/2 <= mouse[1] <= SCREEN_HEIGHT/2 +75:  
-            drawButton(modulateColour(green,'Normal'),400, 75,SCREEN_WIDTH/2 - 200, SCREEN_HEIGHT/2)
+            drawButton(modulateColour(green,'Normal'),400*1.3, 75*1.3,SCREEN_WIDTH/2 - 250, SCREEN_HEIGHT/2)
             ccRHI = True
         else:  
-            drawButton(modulateColour(green,'Dark'),400, 75,SCREEN_WIDTH/2 - 200, SCREEN_HEIGHT/2)
+            drawButton(modulateColour(green,'Dark'),400*1.3, 75*1.3,SCREEN_WIDTH/2 - 250, SCREEN_HEIGHT/2)
             ccRHI = False
         
         # # superimposing the text onto the button  
-        SCREEN.blit(text('Right Hand Improv Practice',(255,255,255),30) , (SCREEN_WIDTH/2 -180,SCREEN_HEIGHT/2 +18.75))  
+        SCREEN.blit(text('Right Hand Improv Practice',(255,255,255),35) , (SCREEN_WIDTH/2 -200,SCREEN_HEIGHT/2 + 27))  
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -166,6 +168,8 @@ while appRunning == True:
             ccKeySelect = False
             drawButton(modulateColour(green,'Normal'),100,100,SCREEN_WIDTH/2 - 300,SCREEN_HEIGHT/2)
 
+        SCREEN.blit(cursorIcon,(SCREEN_WIDTH/2 - 300,SCREEN_HEIGHT/2))
+
         #TONALITY selection button
         if SCREEN_WIDTH/2 - 100 <= mouse[0] <= SCREEN_WIDTH/2 - 0 and SCREEN_HEIGHT/2 <= mouse[1] <= SCREEN_HEIGHT/2 +100:  
             drawButton(modulateColour(orange,'Light'),100,100,SCREEN_WIDTH/2 - 100,SCREEN_HEIGHT/2)
@@ -173,6 +177,8 @@ while appRunning == True:
         else: 
             ccTonalitySelect = False
             drawButton(modulateColour(orange,'Normal'),100,100,SCREEN_WIDTH/2 - 100,SCREEN_HEIGHT/2)
+
+        SCREEN.blit(cursorIcon,(SCREEN_WIDTH/2 - 100,SCREEN_HEIGHT/2))
 
         #OCTAVE selection button
         if SCREEN_WIDTH/2 + 100 <= mouse[0] <= SCREEN_WIDTH/2 + 200 and SCREEN_HEIGHT/2 <= mouse[1] <= SCREEN_HEIGHT/2 +100:  
@@ -182,6 +188,8 @@ while appRunning == True:
             ccOctaveSelect = False
             drawButton(modulateColour(skyBlue,'Normal'),100,100,SCREEN_WIDTH/2 + 100,SCREEN_HEIGHT/2)
 
+        SCREEN.blit(cursorIcon,(SCREEN_WIDTH/2 + 100,SCREEN_HEIGHT/2))
+
         #REPETITIONS selection button
         if SCREEN_WIDTH/2 + 300 <= mouse[0] <= SCREEN_WIDTH/2 + 400 and SCREEN_HEIGHT/2 <= mouse[1] <= SCREEN_HEIGHT/2 +100:  
             drawButton(modulateColour(purple,'Light'),100,100,SCREEN_WIDTH/2 + 300,SCREEN_HEIGHT/2)
@@ -190,6 +198,7 @@ while appRunning == True:
             ccRepetitionSelect = False
             drawButton(modulateColour(purple,'Normal'),100,100,SCREEN_WIDTH/2 + 300,SCREEN_HEIGHT/2)
 
+        SCREEN.blit(cursorIcon,(SCREEN_WIDTH/2 + 300,SCREEN_HEIGHT/2))
 
         #PLAY button
         if SCREEN_WIDTH/2 + -150 <= mouse[0] <= SCREEN_WIDTH/2 + 250 and SCREEN_HEIGHT/2 + 250 <= mouse[1] <= SCREEN_HEIGHT/2 +400:  
@@ -206,6 +215,8 @@ while appRunning == True:
         #KEY selection button TEXT
         SCREEN.blit(text(scaleKeyList[keySelected],(255,255,255),64) , (SCREEN_WIDTH/2 - 282,385))   
 
+        
+
         #TONALITY selection button TEXT
         SCREEN.blit(text(modalitiesList[tonalitySelected],(255,255,255),50 - (len(modalitiesList[tonalitySelected])*2)) , (SCREEN_WIDTH/2 - 100,400))  
 
@@ -217,6 +228,8 @@ while appRunning == True:
 
         #PLAY button TEXT
         SCREEN.blit(text('Play with Setup',(255,255,255),50) , (SCREEN_WIDTH/2 - 120,SCREEN_HEIGHT/2 +300))
+
+        
 
         for event in pygame.event.get():
             #if KEY button is pressed
@@ -279,7 +292,7 @@ while appRunning == True:
     nextDegreeTonality = ''
     while playSelected == True:
         mouse = pygame.mouse.get_pos()
-        SCREEN.fill((20,25,20))
+        SCREEN.fill((20,25,40))
         #actual improvisation app
 
         #currentScale.playerInput()
@@ -316,10 +329,10 @@ while appRunning == True:
 
 
         if len(currentChordDisplay) > 0:
-            SCREEN.blit(text(currentChordDisplay,(255,255,255),48),(SCREEN_WIDTH/2 - 120,SCREEN_HEIGHT/2))
+            SCREEN.blit(text(currentChordDisplay,(255,255,255),64),(SCREEN_WIDTH/2 - 180,SCREEN_HEIGHT/2))
 
         if len(currentChordDisplay) > 0:  
-            SCREEN.blit(text('Next chord: '+nextChordDisplay,skyBlue,34),(SCREEN_WIDTH/2 - 150,SCREEN_HEIGHT/2 +110))
+            SCREEN.blit(text('Next chord: '+nextChordDisplay,skyBlue,48),(SCREEN_WIDTH/2 - 240,SCREEN_HEIGHT/2 +110))
 
         SCREEN.blit(text('Bar count: '+str(chordCount + 1)+'/'+str(repetitionsSelected),(255,255,255),34),(SCREEN_WIDTH/2 - 800,SCREEN_HEIGHT/2 -450))
 
@@ -355,6 +368,9 @@ while appRunning == True:
 
         #MAIN MENU text
         SCREEN.blit(text('Back to Main Menu',(255,255,255),40) , (SCREEN_WIDTH/2 - 150,SCREEN_HEIGHT/2 +300))
+
+        
+
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
