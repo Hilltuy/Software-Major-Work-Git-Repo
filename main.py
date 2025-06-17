@@ -221,10 +221,10 @@ while appRunning == True:
         SCREEN.blit(text(modalitiesList[tonalitySelected],(255,255,255),50 - (len(modalitiesList[tonalitySelected])*2)) , (SCREEN_WIDTH/2 - 100,400))  
 
         #OCTAVE selection button TEXT
-        SCREEN.blit(text(str(octaveSelected),(255,255,255),48), (SCREEN_WIDTH/2 + 140,385))
+        SCREEN.blit(text("Octave: "+str(octaveSelected),(255,255,255),36), (SCREEN_WIDTH/2 + 90,400))
 
         #REPETITONS selection button TEXT
-        SCREEN.blit(text(str(repetitionsSelected),(255,255,255),48), (SCREEN_WIDTH/2 + 340,385))
+        SCREEN.blit(text("Repetitions: "+str(repetitionsSelected),(255,255,255),36), (SCREEN_WIDTH/2 + 275,400))
 
         #PLAY button TEXT
         SCREEN.blit(text('Play with Setup',(255,255,255),50) , (SCREEN_WIDTH/2 - 120,SCREEN_HEIGHT/2 +300))
@@ -295,7 +295,7 @@ while appRunning == True:
         SCREEN.fill((20,25,40))
         #actual improvisation app
 
-        currentScale.playerInput()
+        #currentScale.playerInput()
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
