@@ -346,7 +346,6 @@ while appRunning == True:
             drawButton(modulateColour(darkRed,'Normal'),400,150,SCREEN_WIDTH/2-170,SCREEN_HEIGHT/2 +250)
             ccBackToMain = False
 
-
         #PLAY AGAIN text
         SCREEN.blit(text('Back to Setup',(255,255,255),50) , (SCREEN_WIDTH/2 - 120,SCREEN_HEIGHT/2 +100))
 
