@@ -6,7 +6,10 @@ import pygame.midi as midi
 midi.init()
 midi_out = midi.Output(midi.get_default_output_id(),0)
 midi_out.set_instrument(10)
-midi_in = midi.Input(midi.get_default_input_id(),0)
+if midi.get_default_input_id() != -1:
+    midi_in = midi.Input(midi.get_default_input_id(),0)
+else:
+    midi_in = 0
 
 class Scale():
     def __init__(self, key = str, mode = str, octave = int):
@@ -109,5 +112,5 @@ class Scale():
         return self.notes
 
     def playerInput(self):
-        if midi.get_default_input_id() != -1:
-            midi_out.write(midi_in.read(1))
+            if midi_in != 0:
+                midi_out.write(midi_in.read(1))
